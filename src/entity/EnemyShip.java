@@ -2,6 +2,7 @@ package entity;
 
 import java.awt.Color;
 
+import engine.Audio;
 import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager.SpriteType;
@@ -133,10 +134,15 @@ public class EnemyShip extends Entity {
 		}
 	}
 
+
 	/**
 	 * Destroys the ship, causing an explosion.
 	 */
+	private static Audio hitSound;
 	public final void destroy() {
+		hitSound = new Audio("src/audio/hitSound.wav", false);
+		hitSound.start();
+
 		this.isDestroyed = true;
 		this.spriteType = SpriteType.Explosion;
 	}

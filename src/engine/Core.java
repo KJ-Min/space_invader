@@ -72,6 +72,11 @@ public final class Core {
 	/** Logger handler for printing to console. */
 	private static ConsoleHandler consoleHandler;
 
+	private static Audio backgroundMusic;
+
+	private static Audio gameBGM;
+
+
 
 	/**
 	 * Test implementation.
@@ -118,8 +123,13 @@ public final class Core {
 		do {
 			gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
 
+
+
+
 			switch (returnCode) {
 			case 1:
+				backgroundMusic = new Audio("src/audio/menuBGM.wav", true);
+				backgroundMusic.start();
 				// Main menu.
 				currentScreen = new TitleScreen(width, height, FPS);
 				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
@@ -128,8 +138,13 @@ public final class Core {
 				LOGGER.info("Closing title screen.");
 				break;
 			case 2:
+				backgroundMusic.stop();
+				gameBGM = new Audio("src/audio/gameBGM.wav", true);
+				gameBGM.start();
+
 				// Game & score.
 				do {
+
 					// One extra live every few levels.
 					boolean bonusLife = gameState.getLevel()
 							% EXTRA_LIFE_FRECUENCY == 0
